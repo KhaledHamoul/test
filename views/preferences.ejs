@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include includes/head %>
+    <link rel="stylesheet" href="/select-countries/css/countrySelect.min.css">
+    <style>
+        * {
+            color: white;
+        }
+
+        .container-fluid {}
+
+        body {
+            background: rgb(140, 4, 101);
+            background: linear-gradient(142deg, rgba(140, 4, 101, 1) 0%, rgba(201, 43, 174, 1) 45%, rgba(253, 45, 217, 1) 100%);
+        }
+
+        .jumbotron {
+            margin: 0;
+            background: transparent;
+        }
+
+        .text-muted {
+            color: white !important;
+            text-align: center;
+        }
+
+        .btn {
+            width: 100%;
+            background: white;
+            color: rgb(140, 4, 101);
+            font-weight: 900;
+        }
+
+        select option {
+            color: rgb(140, 4, 101) !important;
+        }
+
+        .country-select.inside {
+            width: 100%;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body class="container-fluid">
+    <div class="jumbotron">
+        <div class="container text-center">
+            <a href="/">
+                <h1>Dzindr</h1>
+            </a>
+            <p>Voulez-vous voyager avec de nouveaux amis ? Trouvez les maintenant</p>
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 m-auto">
+            <h2>Mes Informations Personnelles</h2>
+            <form id="preferencesFrom" method="post" action="/update-user" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="nom">Nom</label>
+                    <input type="text" class="form-control" value="<%= user.nom %>" id="nom" name="nom"
+                        placeholder="Nom" required>
+                </div>
+                <div class="form-group">
+                    <label for="prenom">Préom</label>
+                    <input type="text" class="form-control" id="prenom" name="prenom" value="<%= user.prenom %>"
+                        placeholder="Prénom" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input type="text" class="form-control" id="description" value="<%= user.description %>" name="description"
+                        placeholder="Description" required>
+                </div>
+                <div class="form-group">
+                    <label for="sexe">Sexe</label>
+                    <select class="form-control" id="sexe" name="sexe" value="<%= user.sexe %>">
+                        <option disabled selected>--</option>
+                        <option value="h">Homme</option>
+                        <option value="f">Femme</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" min="18" class="form-control" id="age" name="age" value="<%= user.age %>"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="pays" style="display: block">Pays</label>
+                    <input type="text" class="form-control" id="pays" name="pays" value="<%= user.pays %>" required>
+                </div>
+                <div class="form-group">
+                    <img src="<%= user.avatar %>" />
+                    <label for="avatar">Avatar</label>
+                    <input type="hidden" name="avatar_name" value="<%= user.avatar %>">
+                    <input type="file" class="form-control" id="avatar" name="avatar">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="<%= user.email %>"
+                        placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Mot De Passe</label>
+                    <input type="password" class="form-control" id="pwd" name="pwd" value="<%= user.password %>"
+                        placeholder="Mot de passe" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm">Confirmer</label>
+                    <input type="password" class="form-control" id="confirm" name="confirm"
+                        placeholder="Confirmer le mot de passe" required>
+                </div><br>
+                <button type="submit" class="btn btn-primary m-auto">Valider</button>
+                <a href="/login"><small id="emailHelp" class="form-text text-muted">Avez-vous déja un compte
+                        ?</small></a>
+            </form>
+        </div>
+    </div>
+    <br><br>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="/select-countries/js/countrySelect.min.js"></script>
+    <script>
+        document.getElementById('sexe').value = '<%= user.sexe %>';
+        $("#pays").countrySelect({
+            defaultCountry: "fr"
+        });
+        document.getElementById("preferencesFrom").addEventListener("submit", function (event) {
+            event.preventDefault();
+            var pwd = $("#pwd").val();
+            var confirm = $("#confirm").val();
+            if ((pwd == confirm) && (pwd != "")) $("#preferencesFrom").submit();
+            else alert("Veuillez vérifier votre confirmation de mot de passe !")
+        });
+
+    </script>
+</body>
+
+</html>

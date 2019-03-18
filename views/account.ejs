@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include includes/head %>
+    <style>
+        * {
+            color: white;
+        }
+
+        .container-fluid {}
+
+        body {
+            height: 100%;
+            background: rgb(140, 4, 101);
+            background: linear-gradient(142deg, rgba(140, 4, 101, 1) 0%, rgba(201, 43, 174, 1) 45%, rgba(253, 45, 217, 1) 100%);
+        }
+
+        .jumbotron {
+            margin: 0;
+            background: transparent;
+        }
+
+        .text-muted {
+            color: white !important;
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .card h5,
+        .card p {
+            color: rgb(140, 4, 101) !important;
+        }
+    </style>
+</head>
+
+<body class="container-fluid">
+    <div class="jumbotron">
+        <div class="container text-center">
+            <h1>Dzindr</h1>
+            <p>Voulez-vous voyager avec de nouveaux amis ? Trouvez les maintenant</p>
+            <a href="/mon-compte" class="btn btn-success"><i class="fas fa-tachometer-alt"></i></a>
+            <a href="/preferences" class="btn btn-primary"><i class="fas fa-sliders-h"> Mes Préférences</i></a>
+            <a href="/matches" class="btn btn-success"><i class="fas fa-user-friends"></i></a>
+            <a href="/logout" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8 m-auto">
+            <div class="card m-auto" id="matchCard" style="width: 18rem; display: none">
+                <img src="" id="avatar" class="card-img-top" alt="avatar">
+                <div class="card-body  text-center">
+                    <h5 class="card-title" id="name"></h5>
+                    <p class="card-text" id="description"></p>
+                    <a id="likeBtn" class="btn btn-success"><i class="fas fa-heart"></i></a>
+                    <a id="showImgsBtn" class="btn btn-primary"><i class="fas fa-image"></i></a>
+                    <a id="dislikeBtn" class="btn btn-danger"><i class="fas fa-heart-broken"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <br><br>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        var matchId;
+
+        $(document).ready(function () {
+            newProposed = function () {
+                $.get("/next-user/<%= userId %>", function (data, status) {
+                    
+                    $('#matchCard').show();
+                    if(data[0].length !=0 ){
+                        matchId = data[0][0].id;
+                        $('#name').html(data[0][0].nom + ' ' + data[0][0].prenom);
+                        $('#description').html(data[0][0].description);
+                        $('#avatar').attr('src',data[0][0].avatar);
+                    }
+                    else {
+                        $('#matchCard').html("<p style=\"color: rgb(140, 4, 101)\">Il n y'a aucune proposition pour le moment !</p>");
+                    }
+
+                });
+            };
+
+            newProposed();
+
+            $('#likeBtn').click(function () {
+                $.get("/match/<%= userId %>/" + matchId + "/1", function (data, status) {
+                    console.log(data);
+                    newProposed();
+                });
+            });
+
+            $('#showImgsBtn').click(function () {
+                console.log('clicked');
+            });
+
+            $('#dislikeBtn').click(function () {
+                $.get("/match/<%= userId %>/" + matchId + "/0", function (data, status) {
+                    console.log(data);
+                    newProposed();
+                });
+            });
+
+            
+
+        });
+
+
+    </script>
+</body>
+
+</html>

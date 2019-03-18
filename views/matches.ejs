@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include includes/head %>
+    <style>
+        * {
+            color: white;
+        }
+
+        .container-fluid {}
+
+        body {
+            height: 100%;
+            background: rgb(140, 4, 101);
+            background: linear-gradient(142deg, rgba(140, 4, 101, 1) 0%, rgba(201, 43, 174, 1) 45%, rgba(253, 45, 217, 1) 100%);
+        }
+
+        .jumbotron {
+            margin: 0;
+            background: transparent;
+        }
+
+        .text-muted {
+            color: white !important;
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .card h5,
+        .card p {
+            color: rgb(140, 4, 101) !important;
+        }
+    </style>
+</head>
+
+<body class="container-fluid">
+    <div class="jumbotron">
+        <div class="container text-center">
+            <h1>Dzindr</h1>
+            <p>Voulez-vous voyager avec de nouveaux amis ? Trouvez les maintenant</p>
+            <a href="/mon-compte" class="btn btn-success"><i class="fas fa-tachometer-alt"></i></a>
+            <a href="/preferences" class="btn btn-primary"><i class="fas fa-sliders-h"> Mes Préférences</i></a>
+            <a href="/matches" class="btn btn-success"><i class="fas fa-user-friends"></i></a>
+            <a href="/logout" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i></a>
+        </div>
+    </div>
+    <div class="row">
+            <% for (var i = 0; i < matches[0].length; i++) { %>
+        <div class="col-3">
+            <div class="card">
+                <img src="<%= matches[0][i].avatar %>" class="card-img-top" alt="avatar">
+                <div class="card-body  text-center">
+                    <h5 class="card-title" id="name"><%= matches[0][i].nom + ' ' +  matches[0][i].prenom %></h5>
+                    <p class="card-text" id="description"><%= matches[0][i].description %></p>
+                    <a id="showImgsBtn" class="btn btn-primary"><i class="fas fa-image"></i></a>
+                </div>
+            </div>
+
+        </div>
+        <% } %>
+
+
+    </div>
+    <br><br>
+
+
+</body>
+
+</html>

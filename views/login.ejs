@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include includes/head %>
+    <style>
+        * {
+            color: white;
+        }
+
+        .container-fluid {}
+
+        body {
+            background: rgb(140, 4, 101);
+            background: linear-gradient(142deg, rgba(140, 4, 101, 1) 0%, rgba(201, 43, 174, 1) 45%, rgba(253, 45, 217, 1) 100%);
+        }
+
+        .jumbotron {
+            margin: 0;
+            background: transparent;
+        }
+
+        .text-muted {
+            color: white !important;
+            text-align: center;
+        }
+
+        .btn {
+            width: 100%;
+            background: white;
+            color: rgb(140, 4, 101);
+            font-weight: 900;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body class="container-fluid">
+    <div class="jumbotron">
+        <div class="container text-center">
+            <a href="/">
+                <h1>Dzindr</h1>
+            </a>
+            <p>Voulez-vous voyager avec de nouveaux amis ? Trouvez les maintenant</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 m-auto">
+            <h2>Inscrivez-vous</h2>
+            <form method="post" action="/login">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Mot De Passe</label>
+                    <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Mot de passe" required>
+                </div><br>
+                <button type="submit" class="btn btn-primary m-auto">Valider</button>
+                <a href="/signup"><small id="emailHelp" class="form-text text-muted">Inscirvez-vous si vous n'avez pas encoe un compte.
+                        ?</small></a>
+            </form>
+        </div>
+    </div>
+    <br><br>
+</body>
+
+</html>
